@@ -1,4 +1,4 @@
-package org.cnu.realcoding.myfirstspringbootapp6;
+package org.cnu.realcoding;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
