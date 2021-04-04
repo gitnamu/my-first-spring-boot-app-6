@@ -1,4 +1,4 @@
-package config;
+package org.cnu.realcoding.myfirstspringbootapp6.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,4 +26,3 @@ public class SwaggerConfig {
                 .build();
     }
 }
-
