@@ -1,4 +1,4 @@
-package config;
+package org.cnu.realcoding.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
