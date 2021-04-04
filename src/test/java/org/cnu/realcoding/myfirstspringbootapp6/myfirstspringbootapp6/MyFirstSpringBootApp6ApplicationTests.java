@@ -1,4 +1,4 @@
-package org.cnu.realcoding.myfirstspringbootapp6;
+package org.cnu.realcoding.myfirstspringbootapp6.myfirstspringbootapp6;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
