@@ -10,4 +10,5 @@ public class MyFirstSpringBootApp6Application {
 		SpringApplication.run(MyFirstSpringBootApp6Application.class, args);
 	}
 
+
 }
