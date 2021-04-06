@@ -15,7 +15,20 @@ public class DogManagementService {
     private List<Dog> dogs=new ArrayList<>();
 
     public void insertDog(Dog dog) {
-        dogs.add(dog);
+        //dogs.add(dog);
+        int token = 0;
+        if (dogs.size()==0) {
+            dogs.add(dog);
+        } else {
+            for (Dog dog1 : dogs) {
+                if (dog1.getName().equals(dog.getName()) && dog1.getOwnerName().equals(dog.getOwnerName()) && dog1.getOwnerPhoneNumber().equals(dog.getOwnerPhoneNumber())) {
+                    //XXX http status return
+                    token=1;
+                    break;
+                }
+            }
+            if (token==0) dogs.add(dog);
+        }
     }
 
 
