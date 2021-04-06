@@ -32,29 +32,35 @@ public class DogManagementService {
     }
 
 
-    public Dog getDogByname(String name) {
+    public List<Dog> getDogByname(String name) {
+        List<Dog> getdogs=new ArrayList<>();
         for (Dog dog : dogs) {
             if (dog.getName().equals(name)) {
-                return dog;
+                getdogs.add(dog);
             }
         }
-        throw new DogNotFoundException();
+        if (getdogs.size()==0) throw new DogNotFoundException();
+        return getdogs;
     }
-    public Dog getDogByOwnerName(String ownerName){
+    public List<Dog> getDogByOwnerName(String ownerName){
+        List<Dog> getdogs=new ArrayList<>();
         for(Dog dog : dogs) {
             if(dog.getOwnerName().equals(ownerName)) {
-                return dog;
+                getdogs.add(dog);
             }
         }
-        throw new DogNotFoundException();
+        if (getdogs.size()==0) throw new DogNotFoundException();
+        return getdogs;
     }
-    public Dog getDogByOwnerPhoneNumber(String ownerPhoneNumber) {
+    public List<Dog> getDogByOwnerPhoneNumber(String ownerPhoneNumber) {
+        List<Dog> getdogs=new ArrayList<>();
         for(Dog dog : dogs){
             if(dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {
-                return dog;
+                getdogs.add(dog);
             }
         }
-        throw new DogNotFoundException();
+        if (getdogs.size()==0) throw new DogNotFoundException();
+        return getdogs;
     }
     public Dog getDogByAllInf(String name, String ownerName, String ownerPhoneNumber) {
         for(Dog dog : dogs){
