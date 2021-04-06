@@ -27,4 +27,28 @@ public class DogManagementService {
         }
         throw new DogNotFoundException();
     }
+    public Dog getDogByOwnerName(String ownerName){
+        for(Dog dog : dogs) {
+            if(dog.getOwnerName().equals(ownerName)) {
+                return dog;
+            }
+        }
+        throw new DogNotFoundException();
+    }
+    public Dog getDogByOwnerPhoneNumber(String ownerPhoneNumber) {
+        for(Dog dog : dogs){
+            if(dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {
+                return dog;
+            }
+        }
+        throw new DogNotFoundException();
+    }
+    public Dog getDogByAllInf(String name, String ownerName, String ownerPhoneNumber) {
+        for(Dog dog : dogs){
+            if(dog.getName().equals(name) && dog.getOwnerName().equals(ownerName) && dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)){
+                return dog;
+            }
+        }
+        throw new DogNotFoundException();
+    }
 }
