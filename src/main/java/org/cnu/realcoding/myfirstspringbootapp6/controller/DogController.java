@@ -16,34 +16,9 @@ public class DogController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/dogs")
-    public void createDogs(@RequestBody Dog dog){
+    public void createDogs(@RequestBody Dog dog){   //신규 방문 강아지 등록
         dogManagementService.insertDog(dog);
     }
-    //add
-    public void getDogByOwnerName(@RequestBody Dog ownerName){
-        dogManagementService.getDogbyOwnerName(ownerName);
-    }
-    //add
-    public void getDogByOwnerPhoneNumber(@RequestBody Dog ownerPhoneNumber){
-        dogManagementService.getDogbyOwnerPhoneNumber(ownerPhoneNumber);
-    }
-    //add
-    public void getDogByAllinf(@RequestBody Dog name, Dog ownerName, Dog ownerPhoneNumber){
-        dogManagementService.getDogbyAllinf(name,ownerName,ownerPhoneNumber);
-    }
-    //add
-    public void modifyKind(@RequestBody Dog kind){
-        dogManagementService.modifyKind(kind);
-    }
-    //add
-    public void addRecord(@RequestBody Dog record){
-        dogManagementService.addRecord(record);
-    }
-    //add
-    public void modifyAll(@RequestBody Dog dog){
-
-    }
-
 
     @GetMapping("/dogs")
     public List<Dog> getAllDogs(){
@@ -51,8 +26,23 @@ public class DogController {
     }
 
     //localhost:8080/dogs/[name]
-    @GetMapping("/dogs/{name}")
+    @GetMapping("/dogs/name/{name}")
     public Dog getDogByName(@PathVariable String name) {
         return dogManagementService.getDogByname(name);
+    }
+
+    @GetMapping("/dogs/ownerName/{OwnerName}")
+    public Dog getDogByOwnerName(@PathVariable String OwnerName) {
+        return dogManagementService.getDogByOwnerName(OwnerName);
+    }
+
+    @GetMapping("/dogs/OwnerPhoneNumber/{OwnerPhoneNumber}")
+    public Dog getDogByOwnerPhoneNumber(@PathVariable String OwnerPhoneNumber) {
+        return dogManagementService.getDogByOwnerPhoneNumber(OwnerPhoneNumber);
+    }
+
+    @GetMapping("/dogs/AllInf/{name},{OwnerName},{OwnerPhoneNumber}")
+    public Dog getDogByAllInf(@PathVariable String name, String OwnerName, String OwnerPhoneNumber) {
+        return dogManagementService.getDogByAllInf(name, OwnerName, OwnerPhoneNumber);
     }
 }
