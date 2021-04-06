@@ -19,7 +19,7 @@ public class DogManagementService {
             if(dog1.getName().equals(dog.getName()) || dog1.getOwnerName().equals(dog.getOwnerName()) || dog1.getOwnerPhoneNumber().equals(dog.getOwnerPhoneNumber())){
                 //XXX http status return
             }else{
-                dogs.add(dog);
+                dogs.add(dog1);
             }
         }
     }

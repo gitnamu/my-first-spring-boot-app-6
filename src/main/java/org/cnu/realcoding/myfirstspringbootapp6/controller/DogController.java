@@ -52,7 +52,7 @@ public class DogController {
 
     //localhost:8080/dogs/[name]
     @GetMapping("/dogs/{name}")
-    public void getDogByName(@PathVariable String name) {
-        dogManagementService.getDogByname(name);
+    public Dog getDogByName(@PathVariable String name) {
+        return dogManagementService.getDogByname(name);
     }
 }
