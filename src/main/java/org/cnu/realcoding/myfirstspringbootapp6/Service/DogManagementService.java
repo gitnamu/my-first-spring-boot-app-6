@@ -16,18 +16,18 @@ public class DogManagementService {
 
     public void insertDog(Dog dog) {
         //dogs.add(dog);
-        int token = 0;
-        if (dogs.size()==0) {
+        int token = 0;              //리스트안에 중복값이 없다면 토큰 0 있으면 1
+        if (dogs.size()==0) {       //리스트가 비어있으면 바로 추가
             dogs.add(dog);
         } else {
-            for (Dog dog1 : dogs) {
+            for (Dog dog1 : dogs) { //중복값있는지 체크
                 if (dog1.getName().equals(dog.getName()) && dog1.getOwnerName().equals(dog.getOwnerName()) && dog1.getOwnerPhoneNumber().equals(dog.getOwnerPhoneNumber())) {
                     //XXX http status return
                     token=1;
                     break;
                 }
             }
-            if (token==0) dogs.add(dog);
+            if (token==0) dogs.add(dog);    //중복값 없으니 추가
         }
     }
 
