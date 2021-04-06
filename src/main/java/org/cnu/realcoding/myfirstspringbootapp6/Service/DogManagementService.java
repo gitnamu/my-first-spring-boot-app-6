@@ -14,9 +14,9 @@ public class DogManagementService {
     @Getter
     private List<Dog> dogs=new ArrayList<>();
 
-    public void insertDog(Dog dog) {
+    public void insertDog(Dog dog) {//이미 존재할 경우 특정에러 리턴
         for(Dog dog1 : dogs){
-            if(dogs.equals(dog.getName()) && dogs.equals(dog.getOwnerName()) && dogs.equals(dog.getOwnerPhoneNumber())){
+            if(dog1.getName().equals(dog.getName()) || dog1.getOwnerName().equals(dog.getOwnerName()) || dog1.getOwnerPhoneNumber().equals(dog.getOwnerPhoneNumber())){
                 //XXX http status return
             }else{
                 dogs.add(dog);
