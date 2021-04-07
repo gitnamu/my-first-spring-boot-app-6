@@ -42,7 +42,8 @@ public class DogRepository {
 
     public List<Dog> findDogByOwnerPhoneNumber(String ownerPhoneNumber) {
         return mongoTemplate.find(Query.query(Criteria.where("ownerPhoneNumber").is(ownerPhoneNumber)),
-                Dog.class
-        );    }
+                Dog.class);
+    }
+
 }
 

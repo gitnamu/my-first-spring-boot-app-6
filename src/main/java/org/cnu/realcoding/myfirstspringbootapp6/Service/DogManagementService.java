@@ -61,6 +61,12 @@ public class DogManagementService {
         if (dog==null) throw new DogNotFoundException();
         return dog;
     }
+
+    public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+        if(dog==null) throw new DogNotFoundException();
+        dog.getMedicalRecords().add(newRecords);
+    }
 /*
 
     public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
