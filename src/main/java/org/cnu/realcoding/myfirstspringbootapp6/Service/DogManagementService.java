@@ -17,58 +17,51 @@ public class DogManagementService {
     @Autowired
     private DogRepository dogRepository;
 
-    //@Getter
-    //private List<Dog> dogs=new ArrayList<>();
 
-    public void insertDog(Dog dog) {
-        if (dogRepository.findDog(dog.getName()).getName().equals(dog.getName()))
-            throw new DogNotFoundException();
-        dogRepository.insertDog(dog);
+    public void insertDog(Dog dog) {    //값 입력
+        Dog fdog=dogRepository.findDogByAllInf(dog.getName(),dog.getOwnerName(),dog.getOwnerPhoneNumber());
+        if (fdog==null) dogRepository.insertDog(dog);
+        else {
+            if (fdog.getName().equals(dog.getName()) &&
+                    fdog.getName().equals(dog.getName()) &&
+                    fdog.getName().equals(dog.getName())) {
+                throw new ExistingDogException();
+            }
+            else{
+                dogRepository.insertDog(dog);
+            }
+        }
     }
-    public List<Dog> getAllDogs() {
+    public List<Dog> getAllDogs() { //개 전체 조회
         List<Dog> dog = dogRepository.findAllDog();
-        if (dog==null) throw new DogNotFoundException();
+        if (dog.isEmpty()) throw new DogNotFoundException();
         return dog;
     }
 
-    public Dog getDogByName(String name) {
-        /*for (Dog dog : dogs) {
-            if (dog.getName().equals(name)) {
-                return dog;
-            }
-        }*/
-        Dog dog = dogRepository.findDog(name);
+    public List<Dog> getDogByName(String name) {    //개이름으로 조회
+        List<Dog> dog = dogRepository.findDogByName(name);
+        if (dog.isEmpty()) throw new DogNotFoundException();
+        return dog;
+    }
+
+    public List<Dog> getDogByOwnerName(String ownerName) {  //주인이름으로 조회
+        List<Dog> dog = dogRepository.findDogByOwnerName(ownerName);
+        if (dog.isEmpty()) throw new DogNotFoundException();
+        return dog;
+    }
+
+    public List<Dog> getDogByOwnerPhoneNumber(String ownerPhoneNumber) {    //폰번호로 조회
+        List<Dog> dog = dogRepository.findDogByOwnerPhoneNumber(ownerPhoneNumber);
+        if (dog.isEmpty()) throw new DogNotFoundException();
+        return dog;
+    }
+
+    public Dog getDogByAllInf(String name, String ownerName, String ownerPhoneNumber) { //모든 정보로 조회
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
         if (dog==null) throw new DogNotFoundException();
         return dog;
     }
 /*
-    public Dog getDogByOwnerName(String ownerName) {
-        for (Dog dog : dogs) {
-            if (dog.getOwnerName().equals(ownerName)) {
-                return dog;
-            }
-        }
-        throw new DogNotFoundException();
-    }
-
-    public Dog getDogByOwnerPhoneNumber(String ownerPhoneNumber) {
-        for (Dog dog : dogs) {
-            if (dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {
-                return dog;
-            }
-        }
-        throw new DogNotFoundException();
-    }
-
-    public Dog getDogByAllInf(String name, String ownerName, String ownerPhoneNumber) {
-        for (Dog dog : dogs) {
-            if (dog.getName().equals(name) && dog.getOwnerName().equals(ownerName) && dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {
-                return dog;
-            }
-        }
-        throw new DogNotFoundException();
-    }
-
     public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
         for (Dog dog : dogs) {
             if (dog.getName().equals(name) && dog.getOwnerName().equals(ownerName) && dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {

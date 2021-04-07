@@ -14,8 +14,8 @@ public class DogRepository {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Dog findDog(String name) {
-        return mongoTemplate.findOne(Query.query(Criteria.where("name").is(name)),
+    public Dog findDogByAllInf(String name,String ownerName,String ownerPhoneNumber) {
+        return mongoTemplate.findOne(Query.query(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber)),
                 Dog.class
         );
     }
@@ -28,5 +28,21 @@ public class DogRepository {
         return mongoTemplate.findAll(Dog.class);
     }
 
+    public List<Dog> findDogByName(String name) {
+        return mongoTemplate.find(Query.query(Criteria.where("name").is(name)),
+                Dog.class
+        );
+    }
+
+    public List<Dog> findDogByOwnerName(String ownerName) {
+        return mongoTemplate.find(Query.query(Criteria.where("ownerName").is(ownerName)),
+                Dog.class
+        );
+    }
+
+    public List<Dog> findDogByOwnerPhoneNumber(String ownerPhoneNumber) {
+        return mongoTemplate.find(Query.query(Criteria.where("ownerPhoneNumber").is(ownerPhoneNumber)),
+                Dog.class
+        );    }
 }
 
