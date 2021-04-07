@@ -32,7 +32,7 @@ public class DogManagementService {
     }
 
 
-    public Dog getDogByname(String name) {
+    public Dog getDogByName(String name) {
         for (Dog dog : dogs) {
             if (dog.getName().equals(name)) {
                 return dog;
@@ -76,5 +76,19 @@ public class DogManagementService {
             }
         }
         throw new DogNotFoundException();
+    }
+
+    // 강아지 정보를 통째로 덮어쓰는 메소드
+    public void putDogAllInfo(String name, Dog newDog){
+        Dog originalDog = getDogByName(name);    // name의 이름을 가진 강아지 찾아서 originalDog에 저장
+        newDog.setMedicalRecords(originalDog.getMedicalRecords());  // 이전 정보의 진료기록 보존
+        dogs.remove(originalDog);    // 원래 정보 삭제
+        dogs.add(newDog);   // 변경된 정보 리스트에 추가
+    }
+
+    // 진료기록 추가 메소드
+    public void patchDogMedicalRecords(String name, String newRecord){
+        Dog dog = getDogByName(name);   // name으로 강아지 찾아서 dog에 저장
+        dog.getMedicalRecords().add(newRecord); // dog의 진료기록 리스트에 새로운 진료기록 추가
     }
 }
