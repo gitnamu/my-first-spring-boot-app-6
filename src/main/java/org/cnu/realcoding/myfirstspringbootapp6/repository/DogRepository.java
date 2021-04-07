@@ -1,5 +1,6 @@
 package org.cnu.realcoding.myfirstspringbootapp6.repository;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -9,6 +10,8 @@ import java.util.List;
 
 @Repository
 public class DogRepository {
+
+    @Autowired
     private MongoTemplate mongoTemplate;
 
     public Dog findDog(String name) {
@@ -24,5 +27,6 @@ public class DogRepository {
     public List<Dog> findAllDog() {
         return mongoTemplate.findAll(Dog.class);
     }
+
 }
 

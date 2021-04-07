@@ -16,27 +16,19 @@ public class DogManagementService {
 
     @Autowired
     private DogRepository dogRepository;
-    private List<Dog> dogs;
+
+    //@Getter
+    //private List<Dog> dogs=new ArrayList<>();
+
     public void insertDog(Dog dog) {
-        //dogs.add(dog);
-        int token = 0;              //리스트안에 중복값이 없다면 토큰 0 있으면 1
-        if (dogs.size() == 0) {       //리스트가 비어있으면 바로 추가
-            dogs.add(dog);
-        } else {
-            for (Dog dog1 : dogs) { //중복값있는지 체크
-                if (dog1.getName().equals(dog.getName()) && dog1.getOwnerName().equals(dog.getOwnerName()) && dog1.getOwnerPhoneNumber().equals(dog.getOwnerPhoneNumber())) {
-                    //XXX http status return
-                    token = 1;
-                    break;
-                }
-            }
-            if (token == 0) dogs.add(dog);    //중복값 없으니 추가
-            else throw new ExistingDogException();
-        }
-        //dogRepository.insertDog(dog);
+        if (dogRepository.findDog(dog.getName()).getName().equals(dog.getName()))
+            throw new DogNotFoundException();
+        dogRepository.insertDog(dog);
     }
     public List<Dog> getAllDogs() {
-        return dogRepository.findAllDog();
+        List<Dog> dog = dogRepository.findAllDog();
+        if (dog==null) throw new DogNotFoundException();
+        return dog;
     }
 
     public Dog getDogByName(String name) {
