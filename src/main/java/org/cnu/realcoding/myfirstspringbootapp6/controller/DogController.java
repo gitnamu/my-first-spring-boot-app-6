@@ -28,7 +28,7 @@ public class DogController {
 
     //localhost:8080/dogs/[name]
     @GetMapping("/dogs/name/{name}")
-    public Dog getDogByName(@PathVariable String name) { return dogManagementService.getDogByname(name); }
+    public Dog getDogByName(@PathVariable String name) { return dogManagementService.getDogByName(name); }
 
     @GetMapping("/dogs/ownerName/{OwnerName}")
     public Dog getDogByOwnerName(@PathVariable String OwnerName) { return dogManagementService.getDogByOwnerName(OwnerName); }
@@ -42,4 +42,13 @@ public class DogController {
     @PatchMapping("/dogs/AllInf/{name},{OwnerName},{OwnerPhoneNumber},{Kind}")
     public Dog patchDogbyKind(@PathVariable String name, String OwnerName, String OwnerPhoneNumber, String ChangeKind, @RequestBody Dog patchDog) { return dogManagementService.patchDogByKind(name, OwnerName, OwnerPhoneNumber, ChangeKind); }
 
+    @PutMapping("/dogs/updateAll/{name},{newName},{newOwnerName},{newOwnerPhoneNumber},{newKind}")
+    public void putDogAllInfo(@PathVariable String name, String ownerName, String ownerPhoneNumber, @RequestBody Dog dog) {
+        dogManagementService.putDogAllInfo(name, ownerName, ownerPhoneNumber, dog);
+    }
+
+    @PatchMapping("/dogs/medicalRecord/{name},{ownerName},{ownerPhoneNumber},{medicalRecord}")
+    public void patchDogMedicalRecords(@PathVariable String name, String ownerName, String ownerPhoneNumber, String medicalRecord) {
+        dogManagementService.patchDogMedicalRecords(name, ownerName, ownerPhoneNumber, medicalRecord);
+    }
 }
