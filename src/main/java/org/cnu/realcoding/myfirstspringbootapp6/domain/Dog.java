@@ -1,4 +1,4 @@
-package org.cnu.realcoding.domain;
+package org.cnu.realcoding.myfirstspringbootapp6.domain;
 
 
 import lombok.AllArgsConstructor;
