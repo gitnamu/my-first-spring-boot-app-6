@@ -42,12 +42,12 @@ public class DogController {
 /*
     @PatchMapping("/dogs/AllInf/{name},{OwnerName},{OwnerPhoneNumber},{Kind}")
     public Dog patchDogbyKind(@PathVariable String name, String OwnerName, String OwnerPhoneNumber, String ChangeKind, @RequestBody Dog patchDog) { return dogManagementService.patchDogByKind(name, OwnerName, OwnerPhoneNumber, ChangeKind); }
-
+*/
     @PutMapping("/dogs/updateAll/{name},{newName},{newOwnerName},{newOwnerPhoneNumber},{newKind}")
-    public void putDogAllInfo(@PathVariable String name, @RequestBody Dog dog) {
-        dogManagementService.putDogAllInfo(name, dog);
+    public void putDogAllInfo(@PathVariable String name, String ownerName, String ownerPhoneNumber, @RequestBody Dog dog) {
+        dogManagementService.putDogAllInfo(name, ownerName, ownerPhoneNumber, dog);
     }
-
+/*
     @PatchMapping("/dogs/medicalRecord/{name},{medicalRecord}")
     public void patchDogMedicalRecords(@PathVariable String name, String medicalRecord) {
         dogManagementService.patchDogMedicalRecords(name, medicalRecord);
