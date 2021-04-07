@@ -62,6 +62,7 @@ public class DogManagementService {
         return dog;
     }
 /*
+
     public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
         for (Dog dog : dogs) {
             if (dog.getName().equals(name) && dog.getOwnerName().equals(ownerName) && dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {
