@@ -3,6 +3,7 @@ package org.cnu.realcoding.myfirstspringbootapp6.controller;
 import org.cnu.realcoding.myfirstspringbootapp6.Service.DogManagementService;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.mongo.ReactiveStreamsMongoClientDependsOnBeanFactoryPostProcessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,33 +23,35 @@ public class DogController {
 
     @GetMapping("/dogs")
     public List<Dog> getAllDogs(){
-        return dogManagementService.getDogs();
+        return dogManagementService.getAllDogs();
     }
 
 
     //localhost:8080/dogs/[name]
     @GetMapping("/dogs/name/{name}")
-    public Dog getDogByName(@PathVariable String name) { return dogManagementService.getDogByName(name); }
+    public List<Dog> getDogByName(@PathVariable String name) { return dogManagementService.getDogByName(name); }
 
     @GetMapping("/dogs/ownerName/{OwnerName}")
-    public Dog getDogByOwnerName(@PathVariable String OwnerName) { return dogManagementService.getDogByOwnerName(OwnerName); }
+    public List<Dog> getDogByOwnerName(@PathVariable String OwnerName) { return dogManagementService.getDogByOwnerName(OwnerName); }
 
     @GetMapping("/dogs/OwnerPhoneNumber/{OwnerPhoneNumber}")
-    public Dog getDogByOwnerPhoneNumber(@PathVariable String OwnerPhoneNumber) { return dogManagementService.getDogByOwnerPhoneNumber(OwnerPhoneNumber); }
+    public List<Dog> getDogByOwnerPhoneNumber(@PathVariable String OwnerPhoneNumber) { return dogManagementService.getDogByOwnerPhoneNumber(OwnerPhoneNumber); }
 
     @GetMapping("/dogs/AllInf/{name},{OwnerName},{OwnerPhoneNumber}")
     public Dog getDogByAllInf(@PathVariable String name, String OwnerName, String OwnerPhoneNumber) { return dogManagementService.getDogByAllInf(name, OwnerName, OwnerPhoneNumber); }
-
+/*
     @PatchMapping("/dogs/AllInf/{name},{OwnerName},{OwnerPhoneNumber},{Kind}")
     public Dog patchDogbyKind(@PathVariable String name, String OwnerName, String OwnerPhoneNumber, String ChangeKind, @RequestBody Dog patchDog) { return dogManagementService.patchDogByKind(name, OwnerName, OwnerPhoneNumber, ChangeKind); }
 
     @PutMapping("/dogs/updateAll/{name},{newName},{newOwnerName},{newOwnerPhoneNumber},{newKind}")
-    public void putDogAllInfo(@PathVariable String name, String ownerName, String ownerPhoneNumber, @RequestBody Dog dog) {
-        dogManagementService.putDogAllInfo(name, ownerName, ownerPhoneNumber, dog);
+    public void putDogAllInfo(@PathVariable String name, @RequestBody Dog dog) {
+        dogManagementService.putDogAllInfo(name, dog);
     }
 
-    @PatchMapping("/dogs/medicalRecord/{name},{ownerName},{ownerPhoneNumber},{medicalRecord}")
-    public void patchDogMedicalRecords(@PathVariable String name, String ownerName, String ownerPhoneNumber, String medicalRecord) {
-        dogManagementService.patchDogMedicalRecords(name, ownerName, ownerPhoneNumber, medicalRecord);
-    }
+    @PatchMapping("/dogs/medicalRecord/{name},{medicalRecord}")
+    public void patchDogMedicalRecords(@PathVariable String name, String medicalRecord) {
+        dogManagementService.patchDogMedicalRecords(name, medicalRecord);
+
+    }*/
+
 }
