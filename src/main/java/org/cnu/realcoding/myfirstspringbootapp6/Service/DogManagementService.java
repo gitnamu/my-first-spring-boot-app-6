@@ -3,6 +3,9 @@ package org.cnu.realcoding.myfirstspringbootapp6.Service;
 import lombok.Getter;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
+import org.cnu.realcoding.myfirstspringbootapp6.exception.ExistingDogException;
+import org.cnu.realcoding.myfirstspringbootapp6.repository.DogRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,9 +14,9 @@ import java.util.List;
 @Service
 public class DogManagementService {
 
-    @Getter
-    private List<Dog> dogs = new ArrayList<>();
-
+    @Autowired
+    private DogRepository dogRepository;
+    private List<Dog> dogs;
     public void insertDog(Dog dog) {
         //dogs.add(dog);
         int token = 0;              //리스트안에 중복값이 없다면 토큰 0 있으면 1
@@ -28,19 +31,25 @@ public class DogManagementService {
                 }
             }
             if (token == 0) dogs.add(dog);    //중복값 없으니 추가
+            else throw new ExistingDogException();
         }
+        //dogRepository.insertDog(dog);
+    }
+    public List<Dog> getAllDogs() {
+        return dogRepository.findAllDog();
     }
 
-
     public Dog getDogByName(String name) {
-        for (Dog dog : dogs) {
+        /*for (Dog dog : dogs) {
             if (dog.getName().equals(name)) {
                 return dog;
             }
-        }
-        throw new DogNotFoundException();
+        }*/
+        Dog dog = dogRepository.findDog(name);
+        if (dog==null) throw new DogNotFoundException();
+        return dog;
     }
-
+/*
     public Dog getDogByOwnerName(String ownerName) {
         for (Dog dog : dogs) {
             if (dog.getOwnerName().equals(ownerName)) {
@@ -90,5 +99,8 @@ public class DogManagementService {
     public void patchDogMedicalRecords(String name, String newRecord){
         Dog dog = getDogByName(name);   // name으로 강아지 찾아서 dog에 저장
         dog.getMedicalRecords().add(newRecord); // dog의 진료기록 리스트에 새로운 진료기록 추가
-    }
+
+    }*/
+
+
 }

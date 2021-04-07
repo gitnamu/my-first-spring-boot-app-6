@@ -3,6 +3,7 @@ package org.cnu.realcoding.myfirstspringbootapp6.controller;
 import org.cnu.realcoding.myfirstspringbootapp6.Service.DogManagementService;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.mongo.ReactiveStreamsMongoClientDependsOnBeanFactoryPostProcessor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class DogController {
 
     @GetMapping("/dogs")
     public List<Dog> getAllDogs(){
-        return dogManagementService.getDogs();
+        return dogManagementService.getAllDogs();
     }
 
 
@@ -30,7 +31,7 @@ public class DogController {
     @GetMapping("/dogs/name/{name}")
     public Dog getDogByName(@PathVariable String name) { return dogManagementService.getDogByName(name); }
 
-    @GetMapping("/dogs/ownerName/{OwnerName}")
+    /*@GetMapping("/dogs/ownerName/{OwnerName}")
     public Dog getDogByOwnerName(@PathVariable String OwnerName) { return dogManagementService.getDogByOwnerName(OwnerName); }
 
     @GetMapping("/dogs/OwnerPhoneNumber/{OwnerPhoneNumber}")
@@ -50,5 +51,7 @@ public class DogController {
     @PatchMapping("/dogs/medicalRecord/{name},{medicalRecord}")
     public void patchDogMedicalRecords(@PathVariable String name, String medicalRecord) {
         dogManagementService.patchDogMedicalRecords(name, medicalRecord);
-    }
+
+    }*/
+
 }
