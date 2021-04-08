@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Queue;
 
 @Repository
 public class DogRepository {
@@ -42,7 +44,15 @@ public class DogRepository {
 
     public List<Dog> findDogByOwnerPhoneNumber(String ownerPhoneNumber) {
         return mongoTemplate.find(Query.query(Criteria.where("ownerPhoneNumber").is(ownerPhoneNumber)),
-                Dog.class
-        );    }
+                Dog.class);
+    }
+
+    public void AddRecords(String name,String ownerName,String ownerPhoneNumber, String NewRecords){
+        Query query = new Query().addCriteria(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber));
+        Update update = new Update();
+        update.push("medicalRecords",NewRecords);
+        mongoTemplate.updateFirst(query,update,Dog.class);
+    }
+
 }
 
