@@ -1,5 +1,6 @@
 package org.cnu.realcoding.myfirstspringbootapp6.Service;
 
+import com.mongodb.client.result.UpdateResult;
 import lombok.Getter;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
@@ -60,6 +61,14 @@ public class DogManagementService {
         Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
         if (dog==null) throw new DogNotFoundException();
         return dog;
+    }
+
+    public void patchDogMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecord){
+        //if (dogRepository.patchDogMedicalRecords(name,ownerName,ownerPhoneNumber,newRecord)==null)
+       //     throw new DogNotFoundException();
+        UpdateResult up=dogRepository.patchDogMedicalRecords(name,ownerName,ownerPhoneNumber,newRecord);
+        if (up.getUpsertedId() == null)
+            throw new DogNotFoundException();
     }
 /*
     public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
