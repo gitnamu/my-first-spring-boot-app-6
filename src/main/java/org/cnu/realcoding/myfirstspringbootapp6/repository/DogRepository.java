@@ -1,9 +1,11 @@
 package org.cnu.realcoding.myfirstspringbootapp6.repository;
+import com.mongodb.client.result.UpdateResult;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,5 +46,11 @@ public class DogRepository {
         return mongoTemplate.find(Query.query(Criteria.where("ownerPhoneNumber").is(ownerPhoneNumber)),
                 Dog.class
         );    }
-}
 
+    public UpdateResult PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind, Dog dog) {
+        Update update = new Update();
+        update.set("ChangeKind",dog.getKind());
+        return mongoTemplate.updateFirst(Query.query(Criteria.where("Kind").is(ChangeKind)),
+                update, Dog.class
+        );    }
+}
