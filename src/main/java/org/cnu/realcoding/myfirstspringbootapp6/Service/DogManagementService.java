@@ -1,13 +1,11 @@
 package org.cnu.realcoding.myfirstspringbootapp6.Service;
 
-import com.mongodb.client.result.UpdateResult;
 import lombok.Getter;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.ExistingDogException;
 import org.cnu.realcoding.myfirstspringbootapp6.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,19 +19,19 @@ public class DogManagementService {
 
 
     public void insertDog(Dog dog) {    //값 입력
-        Dog fdog = dogRepository.findDogByAllInf(dog.getName(), dog.getOwnerName(), dog.getOwnerPhoneNumber());
-        if (fdog == null) dogRepository.insertDog(dog);
+        Dog fdog=dogRepository.findDogByAllInf(dog.getName(),dog.getOwnerName(),dog.getOwnerPhoneNumber());
+        if (fdog==null) dogRepository.insertDog(dog);
         else {
             if (fdog.getName().equals(dog.getName()) &&
                     fdog.getName().equals(dog.getName()) &&
                     fdog.getName().equals(dog.getName())) {
                 throw new ExistingDogException();
-            } else {
+            }
+            else{
                 dogRepository.insertDog(dog);
             }
         }
     }
-
     public List<Dog> getAllDogs() { //개 전체 조회
         List<Dog> dog = dogRepository.findAllDog();
         if (dog.isEmpty()) throw new DogNotFoundException();
@@ -59,18 +57,24 @@ public class DogManagementService {
     }
 
     public Dog getDogByAllInf(String name, String ownerName, String ownerPhoneNumber) { //모든 정보로 조회
-        Dog dog = dogRepository.findDogByAllInf(name, ownerName, ownerPhoneNumber);
-        if (dog == null) throw new DogNotFoundException();
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+        if (dog==null) throw new DogNotFoundException();
         return dog;
     }
 
-    public UpdateResult patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind, Dog dog) { //강아지의 종을 바꿈
-        dog = dogRepository.PatchDogByKind(name, ownerName, ownerPhoneNumber, ChangeKind, dog);
+    public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+        if(dog==null) throw new DogNotFoundException();
+        dog.getMedicalRecords().add(newRecords);
+    }
+
+
+    public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) { //강아지의 종을 바꿈
+        DOG dog = dogRepository.PatchDogByKind(name, ownerName, ownerPhoneNumber, ChangeKind, dog);
         UpdateResult.(ChangeKind);
         if (dog == null) throw new DogNotFoundException();
-        return dog;
+        return Dog;
     }
-
 /*
     // 강아지 정보를 통째로 덮어쓰는 메소드
     public void putDogAllInfo(String name, Dog newDog){
@@ -85,7 +89,7 @@ public class DogManagementService {
         Dog dog = getDogByName(name);   // name으로 강아지 찾아서 dog에 저장
         dog.getMedicalRecords().add(newRecord); // dog의 진료기록 리스트에 새로운 진료기록 추가
 
-    }
+    }*/
 
- */
+
 }

@@ -1,5 +1,4 @@
 package org.cnu.realcoding.myfirstspringbootapp6.repository;
-import com.mongodb.client.result.UpdateResult;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -9,6 +8,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Queue;
 
 @Repository
 public class DogRepository {
@@ -44,15 +44,23 @@ public class DogRepository {
 
     public List<Dog> findDogByOwnerPhoneNumber(String ownerPhoneNumber) {
         return mongoTemplate.find(Query.query(Criteria.where("ownerPhoneNumber").is(ownerPhoneNumber)),
-                Dog.class
-        );    }
+                Dog.class);
+    }
 
-    public UpdateResult PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind,Dog dog) {
+    public void AddRecords(String name,String ownerName,String ownerPhoneNumber, String NewRecords){
+        Query query = new Query().addCriteria(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber));
         Update update = new Update();
-        update.set("ChangeKind",dog.getKind());
-        return mongoTemplate.update(Criteria.where("name").is(name)
+        update.push("medicalRecords",NewRecords);
+        mongoTemplate.updateFirst(query,update,Dog.class);
+    }
+
+    public void PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
+        Update update = new Update();
+
+        update.set("ChangeKind",ChangeKind);
+        mongoTemplate.updateFirst(Query.query(Criteria.where("name").is(name)
                 .and("ownerName").is(ownerName)
-                .and("ownerPhoneNumber").is(ownerPhoneNumber)),
-                update, Dog.class
-        );    }
+                .and("ownerPhoneNumber").is(ownerPhoneNumber)), Dog.class);
+    }
 }
+
