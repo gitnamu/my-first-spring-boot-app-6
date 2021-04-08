@@ -47,10 +47,12 @@ public class DogRepository {
                 Dog.class
         );    }
 
-    public UpdateResult PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind, Dog dog) {
+    public UpdateResult PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind,Dog dog) {
         Update update = new Update();
         update.set("ChangeKind",dog.getKind());
-        return mongoTemplate.updateFirst(Query.query(Criteria.where("Kind").is(ChangeKind)),
+        return mongoTemplate.update(Criteria.where("name").is(name)
+                .and("ownerName").is(ownerName)
+                .and("ownerPhoneNumber").is(ownerPhoneNumber)),
                 update, Dog.class
         );    }
 }

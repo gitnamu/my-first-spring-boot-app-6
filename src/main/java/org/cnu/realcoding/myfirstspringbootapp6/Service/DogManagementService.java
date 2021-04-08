@@ -7,6 +7,7 @@ import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.ExistingDogException;
 import org.cnu.realcoding.myfirstspringbootapp6.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,9 +64,9 @@ public class DogManagementService {
         return dog;
     }
 
-    public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) { //강아지의 종을 바꿈
-        UpdateResult dog = dogRepository.PatchDogByKind(name, ownerName, ownerPhoneNumber, ChangeKind);
-        dog.setKind(ChangeKind);
+    public UpdateResult patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind, Dog dog) { //강아지의 종을 바꿈
+        dog = dogRepository.PatchDogByKind(name, ownerName, ownerPhoneNumber, ChangeKind, dog);
+        UpdateResult.(ChangeKind);
         if (dog == null) throw new DogNotFoundException();
         return dog;
     }
