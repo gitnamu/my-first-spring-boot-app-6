@@ -1,6 +1,5 @@
 package org.cnu.realcoding.myfirstspringbootapp6.Service;
 
-import com.mongodb.client.result.UpdateResult;
 import lombok.Getter;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
@@ -17,7 +16,6 @@ public class DogManagementService {
 
     @Autowired
     private DogRepository dogRepository;
-
 
     public void insertDog(Dog dog) {    //값 입력
         Dog fdog=dogRepository.findDogByAllInf(dog.getName(),dog.getOwnerName(),dog.getOwnerPhoneNumber());
@@ -63,12 +61,10 @@ public class DogManagementService {
         return dog;
     }
 
-    public void patchDogMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecord){
-        //if (dogRepository.patchDogMedicalRecords(name,ownerName,ownerPhoneNumber,newRecord)==null)
-       //     throw new DogNotFoundException();
-        UpdateResult up=dogRepository.patchDogMedicalRecords(name,ownerName,ownerPhoneNumber,newRecord);
-        if (up.getUpsertedId() == null)
-            throw new DogNotFoundException();
+    public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+        if(dog==null) throw new DogNotFoundException();
+        dogRepository.AddRecords(name,ownerName,ownerPhoneNumber,newRecords);
     }
 /*
 
@@ -81,15 +77,15 @@ public class DogManagementService {
         }
         throw new DogNotFoundException();
     }
-
+*/
     // 강아지 정보를 통째로 덮어쓰는 메소드
-    public void putDogAllInfo(String name, Dog newDog){
-        Dog originalDog = getDogByName(name);    // name의 이름을 가진 강아지 찾아서 originalDog에 저장
-        newDog.setMedicalRecords(originalDog.getMedicalRecords());  // 이전 정보의 진료기록 보존
-        dogs.remove(originalDog);    // 원래 정보 삭제
-        dogs.add(newDog);   // 변경된 정보 리스트에 추가
+    public void putDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog newDog){
+        Dog dog = dogRepository.updateDogAllInfo(name, ownerName, ownerPhoneNumber, newDog);
+        if(dog == null){
+            throw new DogNotFoundException();
+        }
     }
-
+/*
     // 진료기록 추가 메소드
     public void patchDogMedicalRecords(String name, String newRecord){
         Dog dog = getDogByName(name);   // name으로 강아지 찾아서 dog에 저장

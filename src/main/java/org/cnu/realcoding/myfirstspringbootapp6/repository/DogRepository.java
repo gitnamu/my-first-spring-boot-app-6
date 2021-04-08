@@ -1,5 +1,4 @@
 package org.cnu.realcoding.myfirstspringbootapp6.repository;
-import com.mongodb.client.result.UpdateResult;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -8,8 +7,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 @Repository
 public class DogRepository {
@@ -35,8 +34,8 @@ public class DogRepository {
         return mongoTemplate.find(Query.query(Criteria.where("name").is(name)),
                 Dog.class
         );
-
     }
+
     public List<Dog> findDogByOwnerName(String ownerName) {
         return mongoTemplate.find(Query.query(Criteria.where("ownerName").is(ownerName)),
                 Dog.class
@@ -49,16 +48,25 @@ public class DogRepository {
         );
     }
 
-
-    public UpdateResult patchDogMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String medicalRecords) {
-        /* <String> record = mongoTemplate.findOne(Query.query(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber)),
-                Dog.class
-        ).getMedicalRecords();
-        record.add(medicalRecords);*/
-        Update update = new Update();
-        update.push("medicalRecords",medicalRecords);
-        return mongoTemplate.updateFirst(Query.query(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber)),
+    public Dog updateDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog dog){
+        Update update = new Update();   // 업데이트 할 객체 생성
+        update.set("name",dog.getName());
+        update.set("kind", dog.getKind());
+        update.set("ownerName", dog.getOwnerName());
+        update.set("ownerPhoneNumber", dog.getOwnerPhoneNumber());
+        //조건식 만족하면 업데이트 아니면 null 반환
+        return mongoTemplate.findAndModify(Query.query(Criteria.where("name").is(name)
+                        .and("ownerName").is(ownerName)
+                        .and("ownerPhoneNumber").is(ownerPhoneNumber)
+                        .and("medicalRecords").is(dog.getMedicalRecords())),    // 진료기록 수정시 null 반환
                 update, Dog.class);
+    }
+  
+    public void AddRecords(String name,String ownerName,String ownerPhoneNumber, String NewRecords){
+        Query query = new Query().addCriteria(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber));
+        Update update = new Update();
+        update.push("medicalRecords",NewRecords);
+        mongoTemplate.updateFirst(query,update,Dog.class);
     }
 }
 
