@@ -62,7 +62,7 @@ public class DogManagementService {
     public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
         Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
         if(dog==null) throw new DogNotFoundException();
-        dog.getMedicalRecords().add(newRecords);
+        dogRepository.AddRecords(name,ownerName,ownerPhoneNumber,newRecords);
     }
 
     public void patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) { //강아지의 종을 바꿈
