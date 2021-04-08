@@ -46,7 +46,6 @@ public class DogRepository {
                 Dog.class
         );
     }
-
     public Dog updateDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog dog){
         Update update = new Update();   // 업데이트 할 객체 생성
         update.set("name",dog.getName());
@@ -57,7 +56,7 @@ public class DogRepository {
         return mongoTemplate.findAndModify(Query.query(Criteria.where("name").is(name)
                         .and("ownerName").is(ownerName)
                         .and("ownerPhoneNumber").is(ownerPhoneNumber)
-                        .and("medicalRecords").is(dog.getMedicalRecords())),    // 진료기록 수정시 null 반환
+                        ),    // 진료기록 수정시 null 반환
                 update, Dog.class);
     }
 
@@ -70,7 +69,7 @@ public class DogRepository {
 
     public void PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
         Update update = new Update();
-        update.set("ChangeKind",ChangeKind);
+        update.set("kind",ChangeKind);
         mongoTemplate.updateFirst(Query.query(Criteria.where("name").is(name)
                 .and("ownerName").is(ownerName)
                 .and("ownerPhoneNumber").is(ownerPhoneNumber)),update,Dog.class);
