@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Queue;
 
 @Repository
 public class DogRepository {
@@ -56,11 +55,11 @@ public class DogRepository {
 
     public void PatchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
         Update update = new Update();
-
         update.set("ChangeKind",ChangeKind);
         mongoTemplate.updateFirst(Query.query(Criteria.where("name").is(name)
                 .and("ownerName").is(ownerName)
-                .and("ownerPhoneNumber").is(ownerPhoneNumber)), Dog.class);
+                .and("ownerPhoneNumber").is(ownerPhoneNumber)),update,Dog.class);
     }
+
 }
 
