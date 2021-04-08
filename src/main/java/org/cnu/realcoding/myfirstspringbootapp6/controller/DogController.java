@@ -29,36 +29,29 @@ public class DogController {
 
     //localhost:8080/dogs/[name]
     @GetMapping("/dogs/name/{name}")
-    public List<Dog> getDogByName(@PathVariable String name) {
-        return dogManagementService.getDogByName(name);
-    }
+    public List<Dog> getDogByName(@PathVariable String name) { return dogManagementService.getDogByName(name); }
 
     @GetMapping("/dogs/ownerName/{OwnerName}")
-    public List<Dog> getDogByOwnerName(@PathVariable String OwnerName) {
-        return dogManagementService.getDogByOwnerName(OwnerName);
-    }
+    public List<Dog> getDogByOwnerName(@PathVariable String OwnerName) { return dogManagementService.getDogByOwnerName(OwnerName); }
 
     @GetMapping("/dogs/OwnerPhoneNumber/{OwnerPhoneNumber}")
-    public List<Dog> getDogByOwnerPhoneNumber(@PathVariable String OwnerPhoneNumber) {
-        return dogManagementService.getDogByOwnerPhoneNumber(OwnerPhoneNumber);
-    }
+    public List<Dog> getDogByOwnerPhoneNumber(@PathVariable String OwnerPhoneNumber) { return dogManagementService.getDogByOwnerPhoneNumber(OwnerPhoneNumber); }
 
     @GetMapping("/dogs/AllInf/{name},{OwnerName},{OwnerPhoneNumber}")
-    public Dog getDogByAllInf(@PathVariable String name, String OwnerName, String OwnerPhoneNumber) {
-        return dogManagementService.getDogByAllInf(name, OwnerName, OwnerPhoneNumber);
-    }
+    public Dog getDogByAllInf(@PathVariable String name, String OwnerName, String OwnerPhoneNumber) { return dogManagementService.getDogByAllInf(name, OwnerName, OwnerPhoneNumber); }
 
     @PatchMapping("/dogs/AddRecords/{name},{OwnerName},{OwnerPhoneNumber},{newRecords}")
     public void AddNewRecords(@PathVariable String name, String OwnerName, String OwnerPhoneNumber,String newRecords) {
-        dogManagementService.AddMedicalRecords(name, OwnerName, OwnerPhoneNumber, newRecords);
-    }
+    dogManagementService.AddMedicalRecords(name, OwnerName, OwnerPhoneNumber, newRecords);
+}
 
     @PatchMapping("/dogs/patchDogKind/{name},{OwnerName},{OwnerPhoneNumber},{Kind}")
-    public void patchDogbyKind(@PathVariable String name, String OwnerName, String OwnerPhoneNumber, String ChangeKind, @RequestBody Dog patchDog) {
-         dogManagementService.patchDogByKind(name, OwnerName, OwnerPhoneNumber, ChangeKind); }
+    public void patchDogbyKind(@PathVariable String name, String OwnerName, String OwnerPhoneNumber, String ChangeKind) {
+        dogManagementService.patchDogByKind(name, OwnerName, OwnerPhoneNumber, ChangeKind); }
 
     @PutMapping("/dogs/updateAll/{name},{newName},{newOwnerName},{newOwnerPhoneNumber},{newKind}")
     public void putDogAllInfo(@PathVariable String name, String ownerName, String ownerPhoneNumber, @RequestBody Dog dog) {
         dogManagementService.putDogAllInfo(name, ownerName, ownerPhoneNumber, dog);
     }
+
 }
