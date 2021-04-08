@@ -1,12 +1,15 @@
 package org.cnu.realcoding.myfirstspringbootapp6.Service;
 
+import lombok.Getter;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.ExistingDogException;
 import org.cnu.realcoding.myfirstspringbootapp6.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +17,7 @@ public class DogManagementService {
 
     @Autowired
     private DogRepository dogRepository;
+
 
     public void insertDog(Dog dog) {    //값 입력
         Dog fdog=dogRepository.findDogByAllInf(dog.getName(),dog.getOwnerName(),dog.getOwnerPhoneNumber());
@@ -58,7 +62,6 @@ public class DogManagementService {
         if (dog==null) throw new DogNotFoundException();
         return dog;
     }
-
     public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
         Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
         if(dog==null) throw new DogNotFoundException();
@@ -78,4 +81,6 @@ public class DogManagementService {
             throw new DogNotFoundException();
         }
     }
+
+
 }

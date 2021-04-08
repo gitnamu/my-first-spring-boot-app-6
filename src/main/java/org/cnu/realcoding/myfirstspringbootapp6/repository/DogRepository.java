@@ -60,7 +60,7 @@ public class DogRepository {
                         .and("medicalRecords").is(dog.getMedicalRecords())),    // 진료기록 수정시 null 반환
                 update, Dog.class);
     }
-  
+
     public void AddRecords(String name,String ownerName,String ownerPhoneNumber, String NewRecords){
         Query query = new Query().addCriteria(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber));
         Update update = new Update();
