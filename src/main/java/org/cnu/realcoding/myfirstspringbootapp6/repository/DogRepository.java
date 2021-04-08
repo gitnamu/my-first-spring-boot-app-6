@@ -47,11 +47,11 @@ public class DogRepository {
                 Dog.class);
     }
 
-    public void AddRecords(String NewRecords){
+    public void AddRecords(String name,String ownerName,String ownerPhoneNumber, String NewRecords){
+        Query query = new Query().addCriteria(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber));
         Update update = new Update();
         update.push("medicalRecords",NewRecords);
-        mongoTemplate.update(Dog.class);
-
+        mongoTemplate.updateFirst(query,update,Dog.class);
     }
 
 }
