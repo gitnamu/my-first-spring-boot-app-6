@@ -15,7 +15,6 @@ public class DogManagementService {
     @Autowired
     private DogRepository dogRepository;
 
-
     public void insertDog(Dog dog) {    //값 입력
         Dog fdog=dogRepository.findDogByAllInf(dog.getName(),dog.getOwnerName(),dog.getOwnerPhoneNumber());
         if (fdog==null) dogRepository.insertDog(dog);
@@ -66,22 +65,17 @@ public class DogManagementService {
         dog.getMedicalRecords().add(newRecords);
     }
 
-
     public void patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) { //강아지의 종을 바꿈
         Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
         if(dog==null) throw new DogNotFoundException();
         dogRepository.PatchDogByKind(name,ownerName,ownerPhoneNumber,ChangeKind);
     }
-/*
+
     // 강아지 정보를 통째로 덮어쓰는 메소드
-    public void putDogAllInfo(String name, Dog newDog){
-        Dog originalDog = getDogByName(name);    // name의 이름을 가진 강아지 찾아서 originalDog에 저장
-        newDog.setMedicalRecords(originalDog.getMedicalRecords());  // 이전 정보의 진료기록 보존
-        dogs.remove(originalDog);    // 원래 정보 삭제
-        dogs.add(newDog);   // 변경된 정보 리스트에 추가
+    public void putDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog newDog){
+        Dog dog = dogRepository.updateDogAllInfo(name, ownerName, ownerPhoneNumber, newDog);
+        if(dog == null){
+            throw new DogNotFoundException();
+        }
     }
-
-    }*/
-
-
 }

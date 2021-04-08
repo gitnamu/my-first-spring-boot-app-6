@@ -56,12 +56,9 @@ public class DogController {
     @PatchMapping("/dogs/patchDogKind/{name},{OwnerName},{OwnerPhoneNumber},{Kind}")
     public void patchDogbyKind(@PathVariable String name, String OwnerName, String OwnerPhoneNumber, String ChangeKind, @RequestBody Dog patchDog) {
          dogManagementService.patchDogByKind(name, OwnerName, OwnerPhoneNumber, ChangeKind); }
-/*
+
     @PutMapping("/dogs/updateAll/{name},{newName},{newOwnerName},{newOwnerPhoneNumber},{newKind}")
-    public void putDogAllInfo(@PathVariable String name, @RequestBody Dog dog) {
-        dogManagementService.putDogAllInfo(name, dog);
+    public void putDogAllInfo(@PathVariable String name, String ownerName, String ownerPhoneNumber, @RequestBody Dog dog) {
+        dogManagementService.putDogAllInfo(name, ownerName, ownerPhoneNumber, dog);
     }
-
-    }*/
-
 }

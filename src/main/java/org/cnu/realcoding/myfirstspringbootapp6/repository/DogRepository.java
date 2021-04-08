@@ -43,9 +43,24 @@ public class DogRepository {
 
     public List<Dog> findDogByOwnerPhoneNumber(String ownerPhoneNumber) {
         return mongoTemplate.find(Query.query(Criteria.where("ownerPhoneNumber").is(ownerPhoneNumber)),
-                Dog.class);
+                Dog.class
+        );
     }
 
+    public Dog updateDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog dog){
+        Update update = new Update();   // 업데이트 할 객체 생성
+        update.set("name",dog.getName());
+        update.set("kind", dog.getKind());
+        update.set("ownerName", dog.getOwnerName());
+        update.set("ownerPhoneNumber", dog.getOwnerPhoneNumber());
+        //조건식 만족하면 업데이트 아니면 null 반환
+        return mongoTemplate.findAndModify(Query.query(Criteria.where("name").is(name)
+                        .and("ownerName").is(ownerName)
+                        .and("ownerPhoneNumber").is(ownerPhoneNumber)
+                        .and("medicalRecords").is(dog.getMedicalRecords())),    // 진료기록 수정시 null 반환
+                update, Dog.class);
+    }
+  
     public void AddRecords(String name,String ownerName,String ownerPhoneNumber, String NewRecords){
         Query query = new Query().addCriteria(Criteria.where("name").is(name).and("ownerName").is(ownerName).and("ownerPhoneNumber").is(ownerPhoneNumber));
         Update update = new Update();
@@ -60,6 +75,5 @@ public class DogRepository {
                 .and("ownerName").is(ownerName)
                 .and("ownerPhoneNumber").is(ownerPhoneNumber)),update,Dog.class);
     }
-
 }
 
