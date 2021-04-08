@@ -1,6 +1,5 @@
 package org.cnu.realcoding.myfirstspringbootapp6.Service;
 
-import lombok.Getter;
 import org.cnu.realcoding.myfirstspringbootapp6.domain.Dog;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.DogNotFoundException;
 import org.cnu.realcoding.myfirstspringbootapp6.exception.ExistingDogException;
@@ -8,7 +7,6 @@ import org.cnu.realcoding.myfirstspringbootapp6.repository.DogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,20 +62,15 @@ public class DogManagementService {
     public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
         Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
         if(dog==null) throw new DogNotFoundException();
-        dogRepository.AddRecords(name,ownerName,ownerPhoneNumber,newRecords);
+        dog.getMedicalRecords().add(newRecords);
     }
-/*
 
-    public Dog patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) {
-        for (Dog dog : dogs) {
-            if (dog.getName().equals(name) && dog.getOwnerName().equals(ownerName) && dog.getOwnerPhoneNumber().equals(ownerPhoneNumber)) {
-                dog.setKind(ChangeKind);
-                return dog;
-            }
-        }
-        throw new DogNotFoundException();
+    public void patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) { //강아지의 종을 바꿈
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+        if(dog==null) throw new DogNotFoundException();
+        dogRepository.PatchDogByKind(name,ownerName,ownerPhoneNumber,ChangeKind);
     }
-*/
+
     // 강아지 정보를 통째로 덮어쓰는 메소드
     public void putDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog newDog){
         Dog dog = dogRepository.updateDogAllInfo(name, ownerName, ownerPhoneNumber, newDog);
@@ -85,13 +78,4 @@ public class DogManagementService {
             throw new DogNotFoundException();
         }
     }
-/*
-    // 진료기록 추가 메소드
-    public void patchDogMedicalRecords(String name, String newRecord){
-        Dog dog = getDogByName(name);   // name으로 강아지 찾아서 dog에 저장
-        dog.getMedicalRecords().add(newRecord); // dog의 진료기록 리스트에 새로운 진료기록 추가
-
-    }*/
-
-
 }
