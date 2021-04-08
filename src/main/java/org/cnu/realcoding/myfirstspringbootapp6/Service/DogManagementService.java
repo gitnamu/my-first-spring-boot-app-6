@@ -86,6 +86,24 @@ public class DogManagementService {
         dog.getMedicalRecords().add(newRecord); // dog의 진료기록 리스트에 새로운 진료기록 추가
 
     }*/
+    public void AddMedicalRecords(String name, String ownerName, String ownerPhoneNumber, String newRecords) {
+    Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+    if(dog==null) throw new DogNotFoundException();
+    dogRepository.AddRecords(name,ownerName,ownerPhoneNumber,newRecords);
+}
 
+    public void patchDogByKind(String name, String ownerName, String ownerPhoneNumber, String ChangeKind) { //강아지의 종을 바꿈
+        Dog dog = dogRepository.findDogByAllInf(name,ownerName,ownerPhoneNumber);
+        if(dog==null) throw new DogNotFoundException();
+        dogRepository.PatchDogByKind(name,ownerName,ownerPhoneNumber,ChangeKind);
+    }
+
+    // 강아지 정보를 통째로 덮어쓰는 메소드
+    public void putDogAllInfo(String name, String ownerName, String ownerPhoneNumber, Dog newDog){
+        Dog dog = dogRepository.updateDogAllInfo(name, ownerName, ownerPhoneNumber, newDog);
+        if(dog == null){
+            throw new DogNotFoundException();
+        }
+    }
 
 }
